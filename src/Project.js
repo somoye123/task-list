@@ -1,3 +1,6 @@
+/*
+  eslint-disable no-underscore-dangle
+*/
 export default class Project {
   constructor(name) {
     this.name = name;

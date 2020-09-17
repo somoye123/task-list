@@ -26,7 +26,8 @@
     "stylelint-scss": "^3.17.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --open"
   },
   "repository": {
     "type": "git",

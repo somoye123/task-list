@@ -26,4 +26,8 @@ export default class Project {
   addtask(task) {
     this._tasks.push(task);
   }
+
+  deleteTask(taskIndex) {
+    this.tasks.splice(taskIndex, 1);
+  }
 }

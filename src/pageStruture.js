@@ -1,14 +1,5 @@
 import Task from "./Task";
-import Project from "./Project";
-// import { setDefaultProject } from "./initialProject";
-// import DefaultProject from "./initialProject";
-
-function setDefaultProject() {
-  let defaultproject = new Project("Example Project");
-  localStorage.projects = JSON.stringify([defaultproject]);
-
-  return JSON.parse(localStorage.projects);
-}
+import setDefaultProject from "./initializeProject";
 
 const projects = localStorage.projects
   ? JSON.parse(localStorage.projects)

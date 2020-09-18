@@ -1,6 +1,6 @@
-import setDefaultProject from './initializeProject';
+import setDefaultProject from "./initializeProject";
 
-import { getProjects } from './localStorageModule';
+import { getProjects } from "./localStorageModule";
 
 const projects = getProjects || setDefaultProject();
 

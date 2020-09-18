@@ -1,16 +1,23 @@
 import Task from "./Task";
 import Project from "./Project";
+import PageStructure from "./pageStruture";
 
-let defaultProject = null;
+const { mainHeader, projectContainer } = PageStructure;
+const content = document.getElementById("content");
+content.appendChild(mainHeader);
+content.appendChild(projectContainer);
 
-let project1 = new Project("project1");
-let project2 = new Project("project2");
-const defaultprojects = [project1, project2];
-let testingLocalStorage = localStorage.projects;
-if (testingLocalStorage === undefined)
-  localStorage.projects = JSON.stringify(defaultprojects);
 
-const projects = localStorage.projects ? JSON.parse(localStorage.projects) : [];
+// let defaultProject = null;
+
+// let project1 = new Project("project1");
+// let project2 = new Project("project2");
+// const defaultprojects = [project1, project2];
+// let testingLocalStorage = localStorage.projects;
+// if (testingLocalStorage === undefined)
+//   localStorage.projects = JSON.stringify(defaultprojects);
+
+// const projects = localStorage.projects ? JSON.parse(localStorage.projects) : [];
 
 const addTaskToProject = (task, projectToUpdate) => {
   let foundProject = projects[projectToUpdate];
@@ -41,6 +48,8 @@ editTaskButton.addEventListener("click", () => {
   formTask.elements.namedItem("priority").value = task._priority;
   formTask.elements.namedItem("status").value = task._status;
   formTask.elements.namedItem("note").value = task._note;
+  formTask.elements.namedItem("submit").innerText = "submit task";
+  // document.getElementById("submit").innerText = "submit task";
 });
 
 const addTaskButton = document.getElementById("add-task");

@@ -28,13 +28,30 @@ const deleteTaskFromProject = (taskIndex, projectIndex) => {
   localStorage.projects = JSON.stringify(projects);
 };
 
+const editTaskButton = document.getElementById("edit-task-0");
+editTaskButton.addEventListener("click", () => {
+  formTask.operation = ["edit", 0];
+  formTask.style.display = "block";
+  const project = projects[document.getElementById("selected-project").value];
+  const task = project._tasks[0];
+  console.log(task);
+  formTask.elements.namedItem("title").value = task._title;
+  formTask.elements.namedItem("description").value = task._description;
+  formTask.elements.namedItem("due-date").value = task._dueDate;
+  formTask.elements.namedItem("priority").value = task._priority;
+  formTask.elements.namedItem("status").value = task._status;
+  formTask.elements.namedItem("note").value = task._note;
+});
+
 const addTaskButton = document.getElementById("add-task");
 
-const formTask = document.getElementById("new-task");
+const formTask = document.getElementById("new-update-task");
 formTask.style.display = "none";
 
 addTaskButton.addEventListener("click", () => {
+  formTask.operation = ["add"];
   formTask.style.display = "block";
+  formTask.reset();
 });
 
 formTask.addEventListener("submit", (event) => {
@@ -47,8 +64,14 @@ formTask.addEventListener("submit", (event) => {
   const note = formTask.elements.namedItem("note").value;
   const project = document.getElementById("selected-project").value;
   if (title && description && dueDate && priority && status && note) {
-    let task = new Task(title, description, dueDate, priority, status, note);
-    addTaskToProject(task, project);
+    const task = new Task(title, description, dueDate, priority, status, note);
+
+    if (formTask.operation[0] === "add") {
+      addTaskToProject(task, project);
+    } else {
+      projects[0]._tasks[formTask.operation[1]] = task;
+    }
+
     localStorage.projects = JSON.stringify(projects);
     formTask.reset();
     formTask.style.display = "none";

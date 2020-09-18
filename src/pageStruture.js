@@ -1,9 +1,5 @@
 import Task from "./Task";
-import setDefaultProject from "./initializeProject";
-
-const projects = localStorage.projects
-  ? JSON.parse(localStorage.projects)
-  : setDefaultProject();
+import projects from "./projects";
 
 const PageStructure = () => {
   const mainHeader = document.createElement("h1");

@@ -1,7 +1,7 @@
-import setDefaultProject from "./initializeProject";
+import setDefaultProject from './initializeProject';
 
-const projects = localStorage.projects
-  ? JSON.parse(localStorage.projects)
-  : setDefaultProject();
+import { getProjects } from './localStorageModule';
+
+const projects = getProjects || setDefaultProject();
 
 export default projects;

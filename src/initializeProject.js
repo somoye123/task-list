@@ -1,8 +1,8 @@
 import Project from "./Project";
+import { setProjects } from "./localStorageModule";
 
 export default function setDefaultProject() {
-  let defaultproject = new Project("Example Project");
-  localStorage.projects = JSON.stringify([defaultproject]);
-
-  return JSON.parse(localStorage.projects);
+  const defaultproject = new Project("Example Project");
+  let testing = [defaultproject];
+  setProjects(testing);
 }

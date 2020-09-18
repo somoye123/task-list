@@ -1,7 +1,12 @@
+/*
+  eslint-disable no-underscore-dangle
+*/
 import Task from "./Task";
 import projects from "./projects";
+import { getSelectedProject, setSelectedProject } from "./localStorageModule";
 
 const PageStructure = () => {
+  const content = document.getElementById("content");
   const mainHeader = document.createElement("h1");
   mainHeader.innerText = "MY TODO-LIST";
 
@@ -12,15 +17,17 @@ const PageStructure = () => {
   const projectsSelect = document.createElement("select");
   projectsSelect.id = "selected-project";
   projectsSelect.required = true;
+  // projectsSelect.name = "selectedProject";
 
-  let allProjects = "";
+  let projectsSelectOptions = "";
 
   projects.forEach((project, projectIndex) => {
-    allProjects += `
+    projectsSelectOptions += `
         <option value=${projectIndex}>${project._name}</option>
     `;
   });
-  projectsSelect.innerHTML = allProjects;
+  projectsSelect.innerHTML = projectsSelectOptions;
+  projectsSelect.value = getSelectedProject() || setSelectedProject(0);
 
   const addNewProject = document.createElement("button");
   addNewProject.innerText = "Add new project";
@@ -35,7 +42,46 @@ const PageStructure = () => {
   projectContainer.appendChild(addNewProject);
   projectContainer.appendChild(deleteProject);
 
-  return { mainHeader, projectContainer };
+  const projectForm = document.createElement("form");
+  projectForm.id = "new-project";
+  const projectFormNameInput = document.createElement("input");
+  projectFormNameInput.type = "text";
+  projectFormNameInput.placeholder = "project title";
+  projectFormNameInput.name = "title";
+  const projectFormSubmitButton = document.createElement("button");
+  projectFormSubmitButton.type = "submit";
+  projectFormSubmitButton.innerText = "Create Project";
+
+  projectForm.appendChild(projectFormNameInput);
+  projectForm.appendChild(projectFormSubmitButton);
+
+  const taskContainer = document.createElement("div");
+  const taskHeading = document.createElement("h2");
+  taskHeading.innerText = "My Tasks";
+  const taskUnorderList = document.createElement("ul");
+  const selectedProject = projects[Number.parseInt(getSelectedProject)];
+
+  let selectedProjectLists = "";
+
+  selectedProject._tasks.forEach((task, taskIndex) => {
+    selectedProjectLists += `
+      <li>
+        <h5>${task._title}</h5>
+        <button id="edit-task-${taskIndex}" value='${taskIndex}'>Edit task</button>
+        <button id="delete-task-${taskIndex}" value='${taskIndex}'>Delete task</button>
+      </li>
+    `;
+  });
+  taskUnorderList.innerHTML = selectedProjectLists;
+
+  taskContainer.appendChild(taskHeading);
+  taskContainer.appendChild(taskUnorderList);
+
+  content.appendChild(mainHeader);
+  content.appendChild(projectContainer);
+  content.appendChild(projectForm);
+  content.appendChild(taskContainer);
+  return content;
 };
 
-export default PageStructure();
+export default PageStructure;

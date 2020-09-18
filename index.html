@@ -18,23 +18,28 @@
         <option selected value="0">project1</option>
         <option value="1">project2</option>
       </select>
-      <button>Add new project</button>
+      <button id="add-project">Add new project</button>
+      <button id="delete-project">Delete project</button>
     </div>
+    <form id="new-project">
+      <input type="text" placeholder="projet title" name="title" />
+      <button type="submit">Create project</button>
+    </form>
     <div>
       <h1>My Tasks</h1>
       <ul>
         <li>
           <div>task1</div>
           <button>Edit task</button>
-          <button>Delete task</button>
+          <button id="delete-task-0" value="0">Delete task</button>
         </li>
         <li>
           <div>task2</div>
           <button>Edit task</button>
-          <button>Delete task</button>
+          <button id="delete-task-1" value="1">Delete task</button>
         </li>
       </ul>
-      <!-- <button>Add new task</button> -->
+      <button id="add-task">Add new task</button>
 
       <form id="new-task">
         <input type="text" placeholder="task title" name="title" />

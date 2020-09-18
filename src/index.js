@@ -11,7 +11,6 @@ if (testingLocalStorage === undefined)
   localStorage.projects = JSON.stringify(defaultprojects);
 
 const projects = localStorage.projects ? JSON.parse(localStorage.projects) : [];
-const form = document.getElementById("new-task");
 
 const addTaskToProject = (task, projectToUpdate) => {
   let foundProject = projects[projectToUpdate];
@@ -24,24 +23,35 @@ const addTaskToProject = (task, projectToUpdate) => {
 
 const deleteTaskFromProject = (taskIndex, projectIndex) => {
   let foundProject = projects[projectIndex];
-  foundProject._tasks.splice(taskIndex,1)
+  foundProject._tasks.splice(taskIndex, 1);
   projects[projectIndex]._tasks = foundProject._tasks;
   localStorage.projects = JSON.stringify(projects);
 };
 
-form.addEventListener("submit", (event) => {
+const addTaskButton = document.getElementById("add-task");
+
+const formTask = document.getElementById("new-task");
+formTask.style.display = "none";
+
+addTaskButton.addEventListener("click", () => {
+  formTask.style.display = "block";
+});
+
+formTask.addEventListener("submit", (event) => {
   event.preventDefault();
-  const title = form.elements.namedItem("title").value;
-  const description = form.elements.namedItem("description").value;
-  const dueDate = form.elements.namedItem("due-date").value;
-  const priority = form.elements.namedItem("priority").value;
-  const status = form.elements.namedItem("status").value;
-  const note = form.elements.namedItem("note").value;
+  const title = formTask.elements.namedItem("title").value;
+  const description = formTask.elements.namedItem("description").value;
+  const dueDate = formTask.elements.namedItem("due-date").value;
+  const priority = formTask.elements.namedItem("priority").value;
+  const status = formTask.elements.namedItem("status").value;
+  const note = formTask.elements.namedItem("note").value;
   const project = document.getElementById("selected-project").value;
   if (title && description && dueDate && priority && status && note) {
     let task = new Task(title, description, dueDate, priority, status, note);
     addTaskToProject(task, project);
-    form.reset();
+    localStorage.projects = JSON.stringify(projects);
+    formTask.reset();
+    formTask.style.display = "none";
   } else {
     alert("Fill all informations correctly ");
   }
@@ -55,3 +65,40 @@ const getDefaultProject = () => {
 };
 
 getDefaultProject();
+
+const deleteTaskButton = document.getElementById("delete-task-1");
+
+deleteTaskButton.addEventListener("click", () => {
+  deleteTaskFromProject(0, 0);
+});
+
+const addProjectButton = document.getElementById("add-project");
+
+const formProject = document.getElementById("new-project");
+formProject.style.display = "none";
+
+addProjectButton.addEventListener("click", () => {
+  formProject.style.display = "block";
+});
+
+formProject.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const title = formProject.elements.namedItem("title").value;
+  const project = new Project(title);
+  if (title) {
+    projects.push(project);
+    localStorage.projects = JSON.stringify(projects);
+    formProject.reset();
+    formProject.style.display = "none";
+  } else {
+    alert("Fill all informations correctly ");
+  }
+});
+
+const deleteProjectButton = document.getElementById("delete-project");
+
+deleteProjectButton.addEventListener("click", () => {
+  const projectIndex = document.getElementById("selected-project").value;
+  projects.splice(projectIndex, 1);
+  localStorage.projects = JSON.stringify(projects);
+});

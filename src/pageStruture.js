@@ -17,10 +17,8 @@ const PageStructure = () => {
   const projectsSelect = document.createElement("select");
   projectsSelect.id = "selected-project";
   projectsSelect.required = true;
-  // projectsSelect.name = "selectedProject";
 
   let projectsSelectOptions = "";
-
   projects.forEach((project, projectIndex) => {
     projectsSelectOptions += `
         <option value=${projectIndex}>${project._name}</option>
@@ -28,7 +26,6 @@ const PageStructure = () => {
   });
   projectsSelect.innerHTML = projectsSelectOptions;
   projectsSelect.value = getSelectedProject || setSelectedProject(0);
-
   const addNewProject = document.createElement("button");
   addNewProject.innerText = "Add new project";
   addNewProject.id = "add-project";
@@ -59,15 +56,14 @@ const PageStructure = () => {
   const taskHeading = document.createElement("h2");
   taskHeading.innerText = "My Tasks";
   const taskUnorderList = document.createElement("ul");
-  const selectedProject = projects[Number.parseInt(getSelectedProject)];
+  const selectedProject = projects[projectsSelect.value];
 
   let selectedProjectLists = "";
-
   selectedProject._tasks.forEach((task, taskIndex) => {
     selectedProjectLists += `
       <li>
         <h5>${task._title}</h5>
-        <button id="edit-task-${taskIndex}" value='${taskIndex}'>Edit task</button>
+        <button  id="edit-task-${taskIndex}" value='${taskIndex}'>Edit task</button>
         <button id="delete-task-${taskIndex}" value='${taskIndex}'>Delete task</button>
       </li>
     `;

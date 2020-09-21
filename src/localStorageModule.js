@@ -5,7 +5,6 @@ const getSelectedProject =
 
 const setProjects = (projects) => {
   localStorage.projects = JSON.stringify(projects);
-  return localStorage.projects;
 };
 const setSelectedProject = (projectIndex) => {
   localStorage.selectedProject = JSON.stringify(projectIndex);

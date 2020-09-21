@@ -4,7 +4,7 @@ import PageStructure from "./pageStruture";
 
 PageStructure();
 
-// let defaultProject = null;
+let defaultProject = null;
 
 // let project1 = new Project("project1");
 // let project2 = new Project("project2");

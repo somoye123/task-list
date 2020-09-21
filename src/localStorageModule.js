@@ -1,6 +1,6 @@
 const getProjects = localStorage.projects && JSON.parse(localStorage.projects);
 
-const getSelectedProject =
+const getSelectedProject = () =>
   localStorage.selectedProject && JSON.parse(localStorage.selectedProject);
 
 const setProjects = (projects) => {
@@ -8,6 +8,7 @@ const setProjects = (projects) => {
 };
 const setSelectedProject = (projectIndex) => {
   localStorage.selectedProject = JSON.stringify(projectIndex);
+
   return projectIndex;
 };
 export { getProjects, getSelectedProject, setProjects, setSelectedProject };

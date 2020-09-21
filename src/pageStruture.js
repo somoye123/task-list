@@ -24,7 +24,7 @@ const PageStructure = () => {
     `;
   });
   projectsSelect.innerHTML = projectsSelectOptions;
-  projectsSelect.value = getSelectedProject || setSelectedProject(0);
+  projectsSelect.value = getSelectedProject() || setSelectedProject(0);
   const addNewProject = document.createElement("button");
   addNewProject.innerText = "Add new project";
   addNewProject.id = "add-project";

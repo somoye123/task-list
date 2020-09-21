@@ -1,7 +1,6 @@
 /*
   eslint-disable no-underscore-dangle
 */
-import Task from "./Task";
 import projects from "./projects";
 import { getSelectedProject, setSelectedProject } from "./localStorageModule";
 
@@ -70,13 +69,62 @@ const PageStructure = () => {
   });
   taskUnorderList.innerHTML = selectedProjectLists;
 
+  const addTaskButton = document.createElement("button");
+  addTaskButton.innerText = "Add new task";
+
   taskContainer.appendChild(taskHeading);
   taskContainer.appendChild(taskUnorderList);
+  taskContainer.appendChild(addTaskButton);
+
+  const taskForm = document.createElement("form");
+  taskForm.id = "new-update-task";
+  const taskFormTitleInput = document.createElement("input");
+  taskFormTitleInput.type = "text";
+  taskFormTitleInput.placeholder = "task title";
+  taskFormTitleInput.name = "title";
+
+  const taskFormDescriptionInput = document.createElement("input");
+  taskFormDescriptionInput.type = "text";
+  taskFormDescriptionInput.placeholder = "description";
+  taskFormDescriptionInput.name = "description";
+
+  const taskFormDueDateInput = document.createElement("input");
+  taskFormDueDateInput.type = "text";
+  taskFormDueDateInput.placeholder = "due-date";
+  taskFormDueDateInput.name = "due-date";
+
+  const taskFormPriorityInput = document.createElement("input");
+  taskFormPriorityInput.type = "text";
+  taskFormPriorityInput.placeholder = "priority";
+  taskFormPriorityInput.name = "priority";
+
+  const taskFormStatusInput = document.createElement("input");
+  taskFormStatusInput.type = "text";
+  taskFormStatusInput.placeholder = "status";
+  taskFormStatusInput.name = "status";
+
+  const taskFormNoteInput = document.createElement("input");
+  taskFormNoteInput.type = "text";
+  taskFormNoteInput.placeholder = "note";
+  taskFormNoteInput.name = "note";
+
+  const taskFormSubmitButton = document.createElement("button");
+  taskFormSubmitButton.type = "submit";
+  taskFormSubmitButton.innerText = "Create Task";
+
+  taskForm.appendChild(taskFormTitleInput);
+  taskForm.appendChild(taskFormDescriptionInput);
+  taskForm.appendChild(taskFormDueDateInput);
+  taskForm.appendChild(taskFormPriorityInput);
+  taskForm.appendChild(taskFormStatusInput);
+  taskForm.appendChild(taskFormNoteInput);
+  taskForm.appendChild(taskFormSubmitButton);
 
   content.appendChild(mainHeader);
   content.appendChild(projectContainer);
   content.appendChild(projectForm);
   content.appendChild(taskContainer);
+  content.appendChild(taskForm);
   return content;
 };
 

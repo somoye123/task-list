@@ -1,4 +1,5 @@
-const getProjects = localStorage.projects && JSON.parse(localStorage.projects);
+const getProjects = () =>
+  localStorage.projects && JSON.parse(localStorage.projects);
 
 const getSelectedProject = () =>
   localStorage.selectedProject && JSON.parse(localStorage.selectedProject);

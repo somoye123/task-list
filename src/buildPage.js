@@ -5,4 +5,5 @@ export default () => {
   PageStructure();
   eventListeners.chooseProject();
   eventListeners.addProjectButton();
+  eventListeners.submitProjectForm()
 };

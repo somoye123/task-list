@@ -77,7 +77,7 @@ const eventListeners = () => {
     const editTaskButtons = document.getElementsByClassName("edit-task");
 
     for (let i = 0; i < editTaskButtons.length; i++) {
-      editTaskButtons[i].onclick = function () {
+      editTaskButtons[i].onclick = () => {
         formTask().operation = i;
         formTask().style.display = "block";
         const project = projects()[getSelectedProject()];
@@ -132,9 +132,22 @@ const eventListeners = () => {
   const addTaskToProject = (task, foundProject) => {
     const allprojects = getProjects();
     allprojects[foundProject]._tasks.push(task);
-    console.log(allprojects);
     setProjects(allprojects);
   };
+
+  const deleteTaskButton = () => {
+    const deleteTaskButtons = document.getElementsByClassName("delete-task");
+
+    for (let i = 0; i < deleteTaskButtons.length; i++) {
+      deleteTaskButtons[i].onclick = () => {
+        const allProjects = getProjects();
+        allProjects[getSelectedProject()]._tasks.splice(i, 1);
+        setProjects(allProjects);
+        buildPage();
+      };
+    }
+  };
+
   return {
     chooseProject,
     addProjectButton,
@@ -143,6 +156,7 @@ const eventListeners = () => {
     addTaskButton,
     updateTaskButton,
     submitTaskForm,
+    deleteTaskButton,
   };
 };
 

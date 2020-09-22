@@ -1,7 +1,7 @@
 import setDefaultProject from "./initializeProject";
 
-import { getProjects } from "./localStorageModule";
+import storage from "./localStorageModule";
 
-const projects = () => getProjects() || setDefaultProject();
+const projects = () => storage.getProjects() || setDefaultProject();
 
 export default projects;

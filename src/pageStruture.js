@@ -18,7 +18,7 @@ const PageStructure = () => {
   projectsSelect.required = true;
 
   let projectsSelectOptions = "";
-  projects.forEach((project, projectIndex) => {
+  projects().forEach((project, projectIndex) => {
     projectsSelectOptions += `
         <option value=${projectIndex}>${project._name}</option>
     `;
@@ -28,10 +28,6 @@ const PageStructure = () => {
   const addNewProject = document.createElement("button");
   addNewProject.innerText = "Add new project";
   addNewProject.id = "add-project";
-
-  const deleteProject = document.createElement("button");
-  deleteProject.innerText = "Delete project";
-  deleteProject.id = "delete-project";
 
   const projectForm = document.createElement("form");
   projectForm.id = "new-project";
@@ -46,7 +42,12 @@ const PageStructure = () => {
   projectContainer.appendChild(projectsHeading);
   projectContainer.appendChild(projectsSelect);
   projectContainer.appendChild(addNewProject);
-  projectContainer.appendChild(deleteProject);
+  if (projects().length > 0) {
+    const deleteProject = document.createElement("button");
+    deleteProject.innerText = "Delete project";
+    deleteProject.id = "delete-project";
+    projectContainer.appendChild(deleteProject);
+  }
   projectForm.appendChild(projectFormNameInput);
   projectForm.appendChild(projectFormSubmitButton);
 
@@ -54,18 +55,19 @@ const PageStructure = () => {
   const taskHeading = document.createElement("h2");
   taskHeading.innerText = "My Tasks";
   const taskUnorderList = document.createElement("ul");
-  const selectedProject = projects[projectsSelect.value];
+  const selectedProject = projects()[projectsSelect.value];
 
   let selectedProjectLists = "";
-  selectedProject._tasks.forEach((task, taskIndex) => {
-    selectedProjectLists += `
+  selectedProject &&
+    selectedProject._tasks.forEach((task, taskIndex) => {
+      selectedProjectLists += `
       <li>
         <h5>${task._title}</h5>
         <button  id="edit-task-${taskIndex}" value='${taskIndex}'>Edit task</button>
         <button id="delete-task-${taskIndex}" value='${taskIndex}'>Delete task</button>
       </li>
     `;
-  });
+    });
   taskUnorderList.innerHTML = selectedProjectLists;
 
   const addTaskButton = document.createElement("button");

@@ -75,44 +75,4 @@ import buildPage from "./buildPage";
 //   deleteTaskFromProject(0, 0);
 // });
 
-// const addProjectButton = document.getElementById("add-project");
-
-// const formProject = document.getElementById("new-project");
-// formProject.style.display = "none";
-
-// addProjectButton.addEventListener("click", () => {
-//   formProject.style.display = "block";
-// });
-
-// formProject.addEventListener("submit", (event) => {
-//   event.preventDefault();
-//   const title = formProject.elements.namedItem("title").value;
-//   const project = new Project(title);
-//   if (title) {
-//     projects.push(project);
-//     localStorage.projects = JSON.stringify(projects);
-//     formProject.reset();
-//     formProject.style.display = "none";
-//   } else {
-//     alert("Fill all informations correctly ");
-//   }
-// });
-
-// const deleteProjectButton = document.getElementById("delete-project");
-
-// deleteProjectButton.addEventListener("click", () => {
-//   const projectIndex = document.getElementById("selected-project").value;
-//   projects.splice(projectIndex, 1);
-//   localStorage.projects = JSON.stringify(projects);
-// });
-
-// const formProject = document.getElementById("new-project");
-// formProject.style.display = "none";
-
-// const addProjectButton = document.getElementById("add-project");
-
-// addProjectButton.addEventListener("click", () => {
-//   formProject.style.display = "block";
-// });
-
 buildPage();

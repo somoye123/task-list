@@ -16,10 +16,6 @@ const eventListeners = () => {
       "change",
       function () {
         setSelectedProject(this.value);
-        const content = document.getElementById("content");
-        while (content.firstChild) {
-          content.removeChild(content.lastChild);
-        }
         BuildPage();
       },
       false
@@ -37,24 +33,43 @@ const eventListeners = () => {
       event.preventDefault();
       const title = formProject().elements.namedItem("title").value;
       if (title) {
-        const allProject = getProjects();
+        const allProjects = getProjects();
+
         const project = new Project(title);
-        allProject.push(project);
-        setProjects(allProject);
-        formProject().reset();
-        formProject().style.display = "none";
-        // location.reload();
-        // buildPage();
+        allProjects.push(project);
+        setProjects(allProjects);
+        buildPage();
       } else {
         alert("Fill all informations correctly ");
       }
     });
   };
 
+  const deleteProjectButton = () => {
+    if (projects().length > 0) {
+      document
+        .getElementById("delete-project")
+        .addEventListener("click", () => {
+          const allProjects = getProjects();
+          // if (allProjects.length > 1) {
+          const projectIndex = document.getElementById("selected-project")
+            .value;
+          allProjects.splice(projectIndex, 1);
+          setProjects(allProjects);
+          setSelectedProject(0);
+          buildPage();
+          // } else {
+          //   alert("Projects cannot be empty!");
+          // }
+        });
+    }
+  };
+
   return {
     chooseProject,
     addProjectButton,
     submitProjectForm,
+    deleteProjectButton,
   };
 };
 

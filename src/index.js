@@ -1,4 +1,4 @@
-import buildPage from "./buildProject";
+import buildPage from "./buildPage";
 
 // const addTaskToProject = (task, projectToUpdate) => {
 //   const foundProject = projects[projectToUpdate];

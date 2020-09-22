@@ -1,6 +1,6 @@
 import Project from "./Project";
 import Task from "./Task";
-import { setProjects, getProjects } from "./localStorageModule";
+import storage from "./localStorageModule";
 
 export default function setDefaultProject() {
   const defaultproject = new Project("Example Project");
@@ -37,6 +37,6 @@ export default function setDefaultProject() {
   defaultproject.addTask(defaultproject3Tasks);
 
   const defaultProjects = [defaultproject, defaultproject2];
-  setProjects(defaultProjects);
+  storage.setProjects(defaultProjects);
   return defaultProjects;
 }

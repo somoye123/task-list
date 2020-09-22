@@ -33,11 +33,6 @@ const PageStructure = () => {
   deleteProject.innerText = "Delete project";
   deleteProject.id = "delete-project";
 
-  projectContainer.appendChild(projectsHeading);
-  projectContainer.appendChild(projectsSelect);
-  projectContainer.appendChild(addNewProject);
-  projectContainer.appendChild(deleteProject);
-
   const projectForm = document.createElement("form");
   projectForm.id = "new-project";
   const projectFormNameInput = document.createElement("input");
@@ -48,6 +43,10 @@ const PageStructure = () => {
   projectFormSubmitButton.type = "submit";
   projectFormSubmitButton.innerText = "Create Project";
 
+  projectContainer.appendChild(projectsHeading);
+  projectContainer.appendChild(projectsSelect);
+  projectContainer.appendChild(addNewProject);
+  projectContainer.appendChild(deleteProject);
   projectForm.appendChild(projectFormNameInput);
   projectForm.appendChild(projectFormSubmitButton);
 

@@ -15,4 +15,5 @@ export default () => {
   eventListeners.addTaskButton();
   eventListeners.updateTaskButton();
   eventListeners.submitTaskForm();
+  eventListeners.deleteTaskButton();
 };

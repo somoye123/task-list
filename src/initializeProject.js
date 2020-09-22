@@ -23,8 +23,18 @@ export default function setDefaultProject() {
     "to be done as soon as possible"
   );
 
+  const defaultproject3Tasks = new Task(
+    " project",
+    " description",
+    " date",
+    "high",
+    " completed",
+    " as soon as possible"
+  );
+
   defaultproject.addTask(defaultprojectTasks);
   defaultproject2.addTask(defaultproject2Tasks);
+  defaultproject.addTask(defaultproject3Tasks);
 
   const defaultProjects = [defaultproject, defaultproject2];
   setProjects(defaultProjects);

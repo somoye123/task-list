@@ -6,9 +6,13 @@ export default () => {
   while (content.firstChild) {
     content.removeChild(content.lastChild);
   }
+
   PageStructure();
   eventListeners.chooseProject();
   eventListeners.addProjectButton();
   eventListeners.submitProjectForm();
   eventListeners.deleteProjectButton();
+  eventListeners.addTaskButton();
+  eventListeners.updateTaskButton();
+  eventListeners.submitTaskForm();
 };

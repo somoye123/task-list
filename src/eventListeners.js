@@ -1,5 +1,6 @@
 import {
   setSelectedProject,
+  getSelectedProject,
   getProjects,
   setProjects,
 } from "./localStorageModule";
@@ -8,6 +9,7 @@ import Project from "./Project";
 import BuildPage from "./buildPage";
 import projects from "./projects";
 import buildPage from "./buildPage";
+import Task from "./Task";
 
 const eventListeners = () => {
   const formProject = () => document.getElementById("new-project");
@@ -51,18 +53,93 @@ const eventListeners = () => {
         .getElementById("delete-project")
         .addEventListener("click", () => {
           const allProjects = getProjects();
-          // if (allProjects.length > 1) {
           const projectIndex = document.getElementById("selected-project")
             .value;
           allProjects.splice(projectIndex, 1);
           setProjects(allProjects);
           setSelectedProject(0);
           buildPage();
-          // } else {
-          //   alert("Projects cannot be empty!");
-          // }
         });
     }
+  };
+
+  const formTask = () => document.getElementById("new-update-task");
+
+  const addTaskButton = () => {
+    document.getElementById("add-task").addEventListener("click", () => {
+      formTask().operation = "add";
+      formTask().style.display = "block";
+      formTask().reset();
+    });
+  };
+
+  const updateTaskButton = () => {
+    const editTaskButtons = document.getElementsByClassName("edit-task");
+
+    for (let i = 0; i < editTaskButtons.length; i++) {
+      editTaskButtons[i].onclick = function () {
+        formTask().operation = i;
+        formTask().style.display = "block";
+        const project = projects()[getSelectedProject()];
+        const task = project._tasks[i];
+        formTask().elements.namedItem("title").value = task._title;
+        formTask().elements.namedItem("description").value = task._description;
+        formTask().elements.namedItem("due-date").value = task._dueDate;
+        formTask().elements.namedItem("priority").value = task._priority;
+        formTask().elements.namedItem("status").value = task._status;
+        formTask().elements.namedItem("note").value = task._note;
+      };
+    }
+  };
+
+  const submitTaskForm = () => {
+    formTask().addEventListener("submit", (event) => {
+      event.preventDefault();
+      const title = formTask().elements.namedItem("title").value;
+      const description = formTask().elements.namedItem("description").value;
+      const dueDate = formTask().elements.namedItem("due-date").value;
+      const priority = formTask().elements.namedItem("priority").value;
+      const status = formTask().elements.namedItem("status").value;
+      const note = formTask().elements.namedItem("note").value;
+      const project = projects()[getSelectedProject()];
+      if (title && description && dueDate && priority && status && note) {
+        const task = new Task(
+          title,
+          description,
+          dueDate,
+          priority,
+          status,
+          note
+        );
+
+        if (formTask().operation === "add") {
+          addTaskToProject(task, getSelectedProject());
+        } else {
+          project._tasks[formTask().operation] = task;
+        }
+        const allProjects = projects();
+        allProjects[getSelectedProject()] = project;
+        setProjects(allProjects);
+        formTask().reset();
+        formTask().style.display = "none";
+      } else {
+        alert("Fill all informations correctly ");
+      }
+    });
+  };
+
+  const addTaskToProject = (task, foundProject) => {
+    const allProjects = projects();
+    const project = new Project(allProjects[foundProject].name);
+
+    project._tasks = allProjects[foundProject]._tasks;
+    project.addTask(task);
+    let allProject2 = allProjects;
+    allProject2[foundProject]._tasks = project._tasks;
+    console.log(allProject2);
+    localStorage.projects = JSON.stringify(allProject2);
+    // setProjects(allProject2);
+    buildPage();
   };
 
   return {
@@ -70,6 +147,9 @@ const eventListeners = () => {
     addProjectButton,
     submitProjectForm,
     deleteProjectButton,
+    addTaskButton,
+    updateTaskButton,
+    submitTaskForm,
   };
 };
 

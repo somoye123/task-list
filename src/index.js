@@ -34,9 +34,6 @@ import buildPage from "./buildPage";
 
 // const addTaskButton = document.getElementById("add-task");
 
-// const formTask = document.getElementById("new-update-task");
-// formTask.style.display = "none";
-
 // addTaskButton.addEventListener("click", () => {
 //   formTask.operation = ["add"];
 //   formTask.style.display = "block";
@@ -76,3 +73,18 @@ import buildPage from "./buildPage";
 // });
 
 buildPage();
+
+function updateTaskButton(taskIndex) {
+  formTask().operation = ["edit", taskIndex];
+  formTask().style.display = "block";
+  const project = projects()[document.getElementById("selected-project").value];
+  const task = project._tasks[taskIndex];
+  formTask().elements.namedItem("title").value = task._title;
+  formTask().elements.namedItem("description").value = task._description;
+  formTask().elements.namedItem("due-date").value = task._dueDate;
+  formTask().elements.namedItem("priority").value = task._priority;
+  formTask().elements.namedItem("status").value = task._status;
+  formTask().elements.namedItem("note").value = task._note;
+  formTask().elements.namedItem("submit").innerText = "submit task";
+  // document.getElementById("submit").innerText = "submit task";
+}

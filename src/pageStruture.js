@@ -63,14 +63,15 @@ const PageStructure = () => {
       selectedProjectLists += `
       <li>
         <h5>${task._title}</h5>
-        <button  id="edit-task-${taskIndex}" value='${taskIndex}'>Edit task</button>
-        <button id="delete-task-${taskIndex}" value='${taskIndex}'>Delete task</button>
+        <button class="edit-task" id="edit-task-${taskIndex}" value='${taskIndex}'>Edit task</button>
+        <button class="delete-task" id="delete-task-${taskIndex}" value='${taskIndex}'>Delete task</button>
       </li>
     `;
     });
   taskUnorderList.innerHTML = selectedProjectLists;
 
   const addTaskButton = document.createElement("button");
+  addTaskButton.id = "add-task";
   addTaskButton.innerText = "Add new task";
 
   taskContainer.appendChild(taskHeading);

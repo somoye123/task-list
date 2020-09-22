@@ -1,9 +1,5 @@
-import {
-  setSelectedProject,
-  getSelectedProject,
-  getProjects,
-  setProjects,
-} from "./localStorageModule";
+import storage from "./localStorageModule";
+
 import Project from "./Project";
 
 import buildPage from "./buildPage";
@@ -16,7 +12,7 @@ const eventListeners = () => {
     document.getElementById("selected-project").addEventListener(
       "change",
       function () {
-        setSelectedProject(this.value);
+        storage.setSelectedProject(this.value);
         buildPage();
       },
       false
@@ -34,11 +30,11 @@ const eventListeners = () => {
       event.preventDefault();
       const title = formProject().elements.namedItem("title").value;
       if (title) {
-        const allProjects = getProjects();
+        const allProjects = storage.getProjects();
 
         const project = new Project(title);
         allProjects.push(project);
-        setProjects(allProjects);
+        storage.setProjects(allProjects);
         buildPage();
       } else {
         alert("Fill all informations correctly ");
@@ -51,12 +47,12 @@ const eventListeners = () => {
       document
         .getElementById("delete-project")
         .addEventListener("click", () => {
-          const allProjects = getProjects();
+          const allProjects = storage.getProjects();
           const projectIndex = document.getElementById("selected-project")
             .value;
           allProjects.splice(projectIndex, 1);
-          setProjects(allProjects);
-          setSelectedProject(0);
+          storage.setProjects(allProjects);
+          storage.setSelectedProject(0);
           buildPage();
         });
     }
@@ -79,7 +75,7 @@ const eventListeners = () => {
       editTaskButtons[i].onclick = () => {
         formTask().operation = i;
         formTask().style.display = "block";
-        const project = projects()[getSelectedProject()];
+        const project = projects()[storage.getSelectedProject()];
         const task = project._tasks[i];
         formTask().elements.namedItem("title").value = task._title;
         formTask().elements.namedItem("description").value = task._description;
@@ -100,7 +96,7 @@ const eventListeners = () => {
       const priority = formTask().elements.namedItem("priority").value;
       const status = formTask().elements.namedItem("status").value;
       const note = formTask().elements.namedItem("note").value;
-      const project = projects()[getSelectedProject()];
+      const project = projects()[storage.getSelectedProject()];
       if (title && description && dueDate && priority && status && note) {
         const task = new Task(
           title,
@@ -112,12 +108,12 @@ const eventListeners = () => {
         );
 
         if (formTask().operation === "add") {
-          addTaskToProject(task, getSelectedProject());
+          addTaskToProject(task, storage.getSelectedProject());
         } else {
           project._tasks[formTask().operation] = task;
           const allProjects = projects();
-          allProjects[getSelectedProject()] = project;
-          setProjects(allProjects);
+          allProjects[storage.getSelectedProject()] = project;
+          storage.setProjects(allProjects);
         }
         formTask().reset();
         formTask().style.display = "none";
@@ -129,9 +125,9 @@ const eventListeners = () => {
   };
 
   const addTaskToProject = (task, foundProject) => {
-    const allprojects = getProjects();
+    const allprojects = storage.getProjects();
     allprojects[foundProject]._tasks.push(task);
-    setProjects(allprojects);
+    storage.setProjects(allprojects);
   };
 
   const deleteTaskButton = () => {
@@ -139,9 +135,9 @@ const eventListeners = () => {
 
     for (let i = 0; i < deleteTaskButtons.length; i++) {
       deleteTaskButtons[i].onclick = () => {
-        const allProjects = getProjects();
-        allProjects[getSelectedProject()]._tasks.splice(i, 1);
-        setProjects(allProjects);
+        const allProjects = storage.getProjects();
+        allProjects[storage.getSelectedProject()]._tasks.splice(i, 1);
+        storage.setProjects(allProjects);
         buildPage();
       };
     }

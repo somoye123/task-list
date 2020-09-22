@@ -1,5 +1,5 @@
 import PageStructure from "./pageStruture";
-import eventListeners from "./eventListeners";
+import eventListeners from "./eventListenersModule";
 
 export default () => {
   const content = document.getElementById("content");

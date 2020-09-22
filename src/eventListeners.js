@@ -116,12 +116,13 @@ const eventListeners = () => {
           addTaskToProject(task, getSelectedProject());
         } else {
           project._tasks[formTask().operation] = task;
+          const allProjects = projects();
+          allProjects[getSelectedProject()] = project;
+          setProjects(allProjects);
         }
-        const allProjects = projects();
-        allProjects[getSelectedProject()] = project;
-        setProjects(allProjects);
         formTask().reset();
         formTask().style.display = "none";
+        buildPage();
       } else {
         alert("Fill all informations correctly ");
       }
@@ -129,19 +130,11 @@ const eventListeners = () => {
   };
 
   const addTaskToProject = (task, foundProject) => {
-    const allProjects = projects();
-    const project = new Project(allProjects[foundProject].name);
-
-    project._tasks = allProjects[foundProject]._tasks;
-    project.addTask(task);
-    let allProject2 = allProjects;
-    allProject2[foundProject]._tasks = project._tasks;
-    console.log(allProject2);
-    localStorage.projects = JSON.stringify(allProject2);
-    // setProjects(allProject2);
-    buildPage();
+    const allprojects = getProjects();
+    allprojects[foundProject]._tasks.push(task);
+    console.log(allprojects);
+    setProjects(allprojects);
   };
-
   return {
     chooseProject,
     addProjectButton,

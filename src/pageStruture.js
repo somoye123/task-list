@@ -2,7 +2,7 @@
   eslint-disable no-underscore-dangle
 */
 import projects from "./projects";
-import { getSelectedProject, setSelectedProject } from "./localStorageModule";
+import storage from "./localStorageModule";
 
 const PageStructure = () => {
   const content = document.getElementById("content");
@@ -24,7 +24,8 @@ const PageStructure = () => {
     `;
   });
   projectsSelect.innerHTML = projectsSelectOptions;
-  projectsSelect.value = getSelectedProject() || setSelectedProject(0);
+  projectsSelect.value =
+    storage.getSelectedProject() || storage.setSelectedProject(0);
   const addNewProject = document.createElement("button");
   addNewProject.innerText = "Add new project";
   addNewProject.id = "add-project";

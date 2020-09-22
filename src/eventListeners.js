@@ -6,9 +6,8 @@ import {
 } from "./localStorageModule";
 import Project from "./Project";
 
-import BuildPage from "./buildPage";
-import projects from "./projects";
 import buildPage from "./buildPage";
+import projects from "./projects";
 import Task from "./Task";
 
 const eventListeners = () => {
@@ -18,7 +17,7 @@ const eventListeners = () => {
       "change",
       function () {
         setSelectedProject(this.value);
-        BuildPage();
+        buildPage();
       },
       false
     );

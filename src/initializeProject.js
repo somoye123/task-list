@@ -8,27 +8,27 @@ export default function setDefaultProject() {
   const defaultprojectTasks = new Task(
     "adding a new project",
     "adding a new project description",
-    "task due date",
-    "high",
-    "not yet completed",
+    "2020-10-22",
+    "High",
+    "Incomplete",
     "to be done as soon as possible"
   );
 
   const defaultproject2Tasks = new Task(
     "adding another new project",
     "adding another new project description",
-    "task due date",
-    "low",
-    "completed",
+    "2020-09-22",
+    "Low",
+    "Completed",
     "to be done as soon as possible"
   );
 
   const defaultproject3Tasks = new Task(
     " project",
     " description",
-    " date",
-    "high",
-    " completed",
+    "2020-08-10",
+    "High",
+    "Completed",
     " as soon as possible"
   );
 

@@ -86,34 +86,47 @@ const PageStructure = () => {
   taskFormTitleInput.placeholder = "task title";
   taskFormTitleInput.name = "title";
 
-  const taskFormDescriptionInput = document.createElement("input");
-  taskFormDescriptionInput.type = "text";
+  const taskFormDescriptionInput = document.createElement("textarea");
   taskFormDescriptionInput.placeholder = "description";
   taskFormDescriptionInput.name = "description";
 
   const taskFormDueDateInput = document.createElement("input");
-  taskFormDueDateInput.type = "text";
-  taskFormDueDateInput.placeholder = "due-date";
+  taskFormDueDateInput.type = "date";
   taskFormDueDateInput.name = "due-date";
 
-  const taskFormPriorityInput = document.createElement("input");
-  taskFormPriorityInput.type = "text";
-  taskFormPriorityInput.placeholder = "priority";
+  const taskFormPriorityInput = document.createElement("select");
+  taskFormPriorityInput.id = "priority-status";
   taskFormPriorityInput.name = "priority";
+  taskFormPriorityInput.required = true;
 
-  const taskFormStatusInput = document.createElement("input");
-  taskFormStatusInput.type = "text";
-  taskFormStatusInput.placeholder = "status";
+  let prioritySelectOptions = "";
+  storage.priorityOptions.forEach((option) => {
+    prioritySelectOptions += `
+        <option value=${option}>${option}</option>
+    `;
+  });
+  taskFormPriorityInput.innerHTML = prioritySelectOptions;
+
+  const taskFormStatusInput = document.createElement("select");
+  taskFormStatusInput.id = "status";
   taskFormStatusInput.name = "status";
+  taskFormPriorityInput.required = true;
 
-  const taskFormNoteInput = document.createElement("input");
-  taskFormNoteInput.type = "text";
+  let statusSelectOptions = "";
+  storage.statusOptions.forEach((option) => {
+    statusSelectOptions += `
+        <option value=${option}>${option}</option>
+    `;
+  });
+  taskFormStatusInput.innerHTML = statusSelectOptions;
+
+  const taskFormNoteInput = document.createElement("textarea");
   taskFormNoteInput.placeholder = "note";
   taskFormNoteInput.name = "note";
 
   const taskFormSubmitButton = document.createElement("button");
   taskFormSubmitButton.type = "submit";
-  taskFormSubmitButton.innerText = "Create Task";
+  taskFormSubmitButton.name = "task-submit";
 
   taskForm.appendChild(taskFormTitleInput);
   taskForm.appendChild(taskFormDescriptionInput);

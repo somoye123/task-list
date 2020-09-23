@@ -14,6 +14,17 @@ const storage = () => {
 
     return projectIndex;
   };
-  return { getProjects, getSelectedProject, setProjects, setSelectedProject };
+
+  const priorityOptions = ["Low", "High"];
+
+  const statusOptions = ["Incomplete", "Completed"];
+  return {
+    getProjects,
+    getSelectedProject,
+    setProjects,
+    setSelectedProject,
+    priorityOptions,
+    statusOptions,
+  };
 };
 export default storage();

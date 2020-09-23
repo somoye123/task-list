@@ -35,6 +35,7 @@ const eventListeners = () => {
         const project = new Project(title);
         allProjects.push(project);
         storage.setProjects(allProjects);
+        storage.setSelectedProject(allProjects.length - 1);
         buildPage();
       } else {
         alert("Fill all informations correctly ");
@@ -65,6 +66,7 @@ const eventListeners = () => {
       formTask().operation = "add";
       formTask().style.display = "block";
       formTask().reset();
+      formTask().elements.namedItem("task-submit").innerText = "Add Task";
     });
   };
 
@@ -83,6 +85,7 @@ const eventListeners = () => {
         formTask().elements.namedItem("priority").value = task._priority;
         formTask().elements.namedItem("status").value = task._status;
         formTask().elements.namedItem("note").value = task._note;
+        formTask().elements.namedItem("task-submit").innerText = "Update Task";
       };
     }
   };

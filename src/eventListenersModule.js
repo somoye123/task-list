@@ -9,14 +9,15 @@ import Task from "./Task";
 const eventListeners = () => {
   const formProject = () => document.getElementById("new-project");
   const chooseProject = () => {
-    document.getElementById("selected-project").addEventListener(
-      "change",
-      function () {
-        storage.setSelectedProject(this.value);
-        buildPage();
-      },
-      false
-    );
+    projects().length > 0 &&
+      document.getElementById("selected-project").addEventListener(
+        "change",
+        function () {
+          storage.setSelectedProject(this.value);
+          buildPage();
+        },
+        false
+      );
   };
 
   const addProjectButton = () => {
@@ -44,7 +45,7 @@ const eventListeners = () => {
   };
 
   const deleteProjectButton = () => {
-    if (projects().length > 0) {
+    projects().length > 0 &&
       document
         .getElementById("delete-project")
         .addEventListener("click", () => {
@@ -56,18 +57,18 @@ const eventListeners = () => {
           storage.setSelectedProject(0);
           buildPage();
         });
-    }
   };
 
   const formTask = () => document.getElementById("new-update-task");
 
   const addTaskButton = () => {
-    document.getElementById("add-task").addEventListener("click", () => {
-      formTask().operation = "add";
-      formTask().style.display = "block";
-      formTask().reset();
-      formTask().elements.namedItem("task-submit").innerText = "Add Task";
-    });
+    projects().length > 0 &&
+      document.getElementById("add-task").addEventListener("click", () => {
+        formTask().operation = "add";
+        formTask().style.display = "block";
+        formTask().reset();
+        formTask().elements.namedItem("task-submit").innerText = "Add Task";
+      });
   };
 
   const updateTaskButton = () => {
@@ -91,40 +92,41 @@ const eventListeners = () => {
   };
 
   const submitTaskForm = () => {
-    formTask().addEventListener("submit", (event) => {
-      event.preventDefault();
-      const title = formTask().elements.namedItem("title").value;
-      const description = formTask().elements.namedItem("description").value;
-      const dueDate = formTask().elements.namedItem("due-date").value;
-      const priority = formTask().elements.namedItem("priority").value;
-      const status = formTask().elements.namedItem("status").value;
-      const note = formTask().elements.namedItem("note").value;
-      const project = projects()[storage.getSelectedProject()];
-      if (title && description && dueDate && priority && status && note) {
-        const task = new Task(
-          title,
-          description,
-          dueDate,
-          priority,
-          status,
-          note
-        );
+    projects().length > 0 &&
+      formTask().addEventListener("submit", (event) => {
+        event.preventDefault();
+        const title = formTask().elements.namedItem("title").value;
+        const description = formTask().elements.namedItem("description").value;
+        const dueDate = formTask().elements.namedItem("due-date").value;
+        const priority = formTask().elements.namedItem("priority").value;
+        const status = formTask().elements.namedItem("status").value;
+        const note = formTask().elements.namedItem("note").value;
+        const project = projects()[storage.getSelectedProject()];
+        if (title && description && dueDate && priority && status && note) {
+          const task = new Task(
+            title,
+            description,
+            dueDate,
+            priority,
+            status,
+            note
+          );
 
-        if (formTask().operation === "add") {
-          addTaskToProject(task, storage.getSelectedProject());
+          if (formTask().operation === "add") {
+            addTaskToProject(task, storage.getSelectedProject());
+          } else {
+            project._tasks[formTask().operation] = task;
+            const allProjects = projects();
+            allProjects[storage.getSelectedProject()] = project;
+            storage.setProjects(allProjects);
+          }
+          formTask().reset();
+          formTask().style.display = "none";
+          buildPage();
         } else {
-          project._tasks[formTask().operation] = task;
-          const allProjects = projects();
-          allProjects[storage.getSelectedProject()] = project;
-          storage.setProjects(allProjects);
+          alert("Fill all informations correctly ");
         }
-        formTask().reset();
-        formTask().style.display = "none";
-        buildPage();
-      } else {
-        alert("Fill all informations correctly ");
-      }
-    });
+      });
   };
 
   const addTaskToProject = (task, foundProject) => {

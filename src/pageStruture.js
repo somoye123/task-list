@@ -37,7 +37,7 @@ const PageStructure = () => {
   projectFormSubmitButton.type = "submit";
   projectFormSubmitButton.innerText = "Create Project";
 
-  projectContainer.appendChild(projectsSelect);
+  projects().length > 0 && projectContainer.appendChild(projectsSelect);
   if (projects().length > 0) {
     const deleteProject = document.createElement("button");
     deleteProject.innerText = "Delete project";
@@ -52,11 +52,12 @@ const PageStructure = () => {
 
   const taskContainer = document.createElement("div");
   taskContainer.id = "task-container";
-  const taskUnorderList = document.createElement("ul");
-  taskUnorderList.id = "task-order-list";
-  const selectedProject = projects()[projectsSelect.value];
+  if (projects().length > 0) {
+    const taskUnorderList = document.createElement("ul");
+    taskUnorderList.id = "task-order-list";
+    const selectedProject = projects()[projectsSelect.value];
 
-  let selectedProjectLists = `
+    let selectedProjectLists = `
         <h5>Title</h5>
         <h5>Description</h5>
         <h5>DueDate</h5>
@@ -65,9 +66,9 @@ const PageStructure = () => {
         <h5>Note</h5>
         <div></div>
   `;
-  selectedProject &&
-    selectedProject._tasks.forEach((task, taskIndex) => {
-      selectedProjectLists += `
+    selectedProject &&
+      selectedProject._tasks.forEach((task, taskIndex) => {
+        selectedProjectLists += `
 
         <h5>${task._title}</h5>
         <h5>${task._description}</h5>
@@ -92,19 +93,19 @@ const PageStructure = () => {
       });
     taskUnorderList.innerHTML = selectedProjectLists;
 
-  const addTaskContainer = document.createElement("div");
-  addTaskContainer.id = "add-task-container";
+    const addTaskContainer = document.createElement("div");
+    addTaskContainer.id = "add-task-container";
 
-  const addTaskButton = document.createElement("button");
-  addTaskButton.id = "add-task";
-  addTaskButton.classList.add("btn", "btn-success");
-  addTaskButton.innerText = "Add new task";
+    const addTaskButton = document.createElement("button");
+    addTaskButton.id = "add-task";
+    addTaskButton.classList.add("btn", "btn-success");
+    addTaskButton.innerText = "Add new task";
 
-  addTaskContainer.appendChild(addTaskButton);
+    taskContainer.appendChild(taskUnorderList);
 
-  taskContainer.appendChild(taskUnorderList);
-
-  taskContainer.appendChild(addTaskContainer);
+    addTaskContainer.appendChild(addTaskButton);
+    taskContainer.appendChild(addTaskContainer);
+  }
 
   const taskForm = document.createElement("form");
   if (projects().length > 0) {

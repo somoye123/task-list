@@ -26,17 +26,8 @@ const PageStructure = () => {
   addNewProject.innerText = "Add new project";
   addNewProject.classList.add("btn", "btn-success");
   addNewProject.id = "add-project";
-
-  const projectForm = document.createElement("form");
-  projectForm.id = "new-project";
-  const projectFormNameInput = document.createElement("input");
-  projectFormNameInput.type = "text";
-  projectFormNameInput.placeholder = "project title";
-  projectFormNameInput.name = "title";
-  const projectFormSubmitButton = document.createElement("button");
-  projectFormSubmitButton.type = "submit";
-  projectFormSubmitButton.innerText = "Create Project";
-
+  addNewProject.setAttribute("data-toggle", "modal");
+  addNewProject.setAttribute("data-target", "#projectModal");
   projects().length > 0 && projectContainer.appendChild(projectsSelect);
   if (projects().length > 0) {
     const deleteProject = document.createElement("button");
@@ -47,8 +38,6 @@ const PageStructure = () => {
     projectContainer.appendChild(deleteProject);
   }
   projectContainer.appendChild(addNewProject);
-  projectForm.appendChild(projectFormNameInput);
-  projectForm.appendChild(projectFormSubmitButton);
 
   const taskContainer = document.createElement("div");
   taskContainer.id = "task-container";
@@ -166,10 +155,46 @@ const PageStructure = () => {
     taskForm.appendChild(taskFormSubmitButton);
   }
 
+  const projectFormModal = document.createElement("div");
+  projectFormModal.classList.add("modal");
+  projectFormModal.id = "projectModal";
+  projectFormModal.tabindex = "-1";
+
+  let projectFormModalContent = `
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="new-project">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="new-project-modal">Project Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="new-project-modal"
+                name="title"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" data-toggle="modal" data-target="#projectModal" class="btn btn-success">Create Project</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+  projectFormModal.innerHTML = projectFormModalContent;
+
   content.appendChild(projectContainer);
-  content.appendChild(projectForm);
   content.appendChild(taskContainer);
   content.appendChild(taskForm);
+  content.appendChild(projectFormModal);
 
   return content;
 };

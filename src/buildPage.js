@@ -1,7 +1,7 @@
 /*
   eslint-disable import/no-cycle
 */
-import PageStructure from './pageStruture';
+import PageStructure from './pageStructure';
 import eventListeners from './eventListenersModule';
 
 export default () => {

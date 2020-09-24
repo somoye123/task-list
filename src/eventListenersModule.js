@@ -1,5 +1,5 @@
 /*
-  eslint-disable no-underscore-dangle, import/no-cycle, no-alert
+  eslint-disable no-underscore-dangle, import/no-cycle, no-alert,func-names
 */
 import storage from './localStorageModule';
 
@@ -15,7 +15,7 @@ const eventListeners = () => {
     if (projects().length > 0) {
       document.getElementById('selected-project').addEventListener(
         'change',
-        () => {
+        function () {
           storage.setSelectedProject(this.value);
           buildPage();
         },

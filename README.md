@@ -6,7 +6,7 @@
 
 ![screenshot](screenshot_project.png)
 
-View the app live [here]()
+View the app live [here](https://raw.githack.com/somoye123/task-list/main-part/dist/index.html)
 
 ## Built With
 

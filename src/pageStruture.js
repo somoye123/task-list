@@ -89,70 +89,13 @@ const PageStructure = () => {
     addTaskButton.id = "add-task";
     addTaskButton.classList.add("btn", "btn-success");
     addTaskButton.innerText = "Add new task";
+    addTaskButton.setAttribute("data-toggle", "modal");
+    addTaskButton.setAttribute("data-target", "#taskModal");
 
     taskContainer.appendChild(taskUnorderList);
 
     addTaskContainer.appendChild(addTaskButton);
     taskContainer.appendChild(addTaskContainer);
-  }
-
-  const taskForm = document.createElement("form");
-  if (projects().length > 0) {
-    taskForm.id = "new-update-task";
-    const taskFormTitleInput = document.createElement("input");
-    taskFormTitleInput.type = "text";
-    taskFormTitleInput.placeholder = "task title";
-    taskFormTitleInput.name = "title";
-
-    const taskFormDescriptionInput = document.createElement("textarea");
-    taskFormDescriptionInput.placeholder = "description";
-    taskFormDescriptionInput.name = "description";
-
-    const taskFormDueDateInput = document.createElement("input");
-    taskFormDueDateInput.type = "date";
-    taskFormDueDateInput.name = "due-date";
-
-    const taskFormPriorityInput = document.createElement("select");
-    taskFormPriorityInput.id = "priority-status";
-    taskFormPriorityInput.name = "priority";
-    taskFormPriorityInput.required = true;
-
-    let prioritySelectOptions = "";
-    storage.priorityOptions.forEach((option) => {
-      prioritySelectOptions += `
-        <option value=${option}>${option}</option>
-    `;
-    });
-    taskFormPriorityInput.innerHTML = prioritySelectOptions;
-
-    const taskFormStatusInput = document.createElement("select");
-    taskFormStatusInput.id = "status";
-    taskFormStatusInput.name = "status";
-    taskFormPriorityInput.required = true;
-
-    let statusSelectOptions = "";
-    storage.statusOptions.forEach((option) => {
-      statusSelectOptions += `
-        <option value=${option}>${option}</option>
-    `;
-    });
-    taskFormStatusInput.innerHTML = statusSelectOptions;
-
-    const taskFormNoteInput = document.createElement("textarea");
-    taskFormNoteInput.placeholder = "note";
-    taskFormNoteInput.name = "note";
-
-    const taskFormSubmitButton = document.createElement("button");
-    taskFormSubmitButton.type = "submit";
-    taskFormSubmitButton.name = "task-submit";
-
-    taskForm.appendChild(taskFormTitleInput);
-    taskForm.appendChild(taskFormDescriptionInput);
-    taskForm.appendChild(taskFormDueDateInput);
-    taskForm.appendChild(taskFormPriorityInput);
-    taskForm.appendChild(taskFormStatusInput);
-    taskForm.appendChild(taskFormNoteInput);
-    taskForm.appendChild(taskFormSubmitButton);
   }
 
   const projectFormModal = document.createElement("div");
@@ -191,10 +134,112 @@ const PageStructure = () => {
   `;
   projectFormModal.innerHTML = projectFormModalContent;
 
+  const taskFormModal = document.createElement("div");
+  taskFormModal.classList.add("modal");
+  taskFormModal.id = "taskModal";
+  taskFormModal.tabindex = "-1";
+
+  let statusSelectOptions = "";
+  storage.statusOptions.forEach((option) => {
+    statusSelectOptions += `
+        <option value=${option}>${option}</option>
+    `;
+  });
+
+  let prioritySelectOptions = "";
+  storage.priorityOptions.forEach((option) => {
+    prioritySelectOptions += `
+        <option value=${option}>${option}</option>
+    `;
+  });
+
+  let taskFormModalContent = `
+
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form id="new-update-task">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-project-modal">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+            />
+          </div>
+          <div class="form-group">
+            <label for="new-project-modal">Description</label>
+            <textarea 
+              class="form-control"
+              id="description"
+              name="description"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="new-project-modal">Due-Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="due-date"
+              name="due-date"
+            />
+          </div>
+          <div class="form-group">
+            <label for="new-project-modal">Priority</label>
+            <select
+              type="text"
+              class="form-control"
+              id="priority-status"
+              name="priority"
+              required
+            >
+            ${prioritySelectOptions}
+            </select>
+          </div>        
+          <div class="form-group">
+            <label for="new-project-modal">Status</label>
+            <select
+              type="text"
+              class="form-control"
+              id="status"
+              name="status"
+              required
+            >
+            ${statusSelectOptions}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="new-project-modal">Note</label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="note"
+              name="note"
+            ></textarea>
+          </div>                
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" data-toggle="modal" data-target="#taskModal" class="btn btn-success" name="task-submit" ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  `;
+
+  taskFormModal.innerHTML = taskFormModalContent;
+
   content.appendChild(projectContainer);
   content.appendChild(taskContainer);
-  content.appendChild(taskForm);
   content.appendChild(projectFormModal);
+  content.appendChild(taskFormModal);
 
   return content;
 };

@@ -1,8 +1,11 @@
-import PageStructure from "./pageStruture";
-import eventListeners from "./eventListenersModule";
+/*
+  eslint-disable import/no-cycle
+*/
+import PageStructure from './pageStruture';
+import eventListeners from './eventListenersModule';
 
 export default () => {
-  const content = document.getElementById("content");
+  const content = document.getElementById('content');
   while (content.firstChild) {
     content.removeChild(content.lastChild);
   }

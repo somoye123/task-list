@@ -1,10 +1,10 @@
 // export { getProjects, getSelectedProject, setProjects, setSelectedProject };
 const storage = () => {
-  const getProjects = () =>
-    localStorage.projects && JSON.parse(localStorage.projects);
+  const getProjects = () => localStorage.projects && JSON.parse(localStorage.projects);
 
-  const getSelectedProject = () =>
-    localStorage.selectedProject && JSON.parse(localStorage.selectedProject);
+  const getSelectedProject = () => (
+    localStorage.selectedProject && JSON.parse(localStorage.selectedProject)
+  );
 
   const setProjects = (projects) => {
     localStorage.projects = JSON.stringify(projects);
@@ -15,9 +15,9 @@ const storage = () => {
     return projectIndex;
   };
 
-  const priorityOptions = ["Low", "High"];
+  const priorityOptions = ['Low', 'High'];
 
-  const statusOptions = ["Incomplete", "Completed"];
+  const statusOptions = ['Incomplete', 'Completed'];
   return {
     getProjects,
     getSelectedProject,
@@ -27,4 +27,5 @@ const storage = () => {
     statusOptions,
   };
 };
+
 export default storage();

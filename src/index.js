@@ -1,2 +1,3 @@
-import buildPage from "./buildPage";
+import buildPage from './buildPage';
+
 buildPage();

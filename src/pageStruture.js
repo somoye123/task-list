@@ -1,50 +1,49 @@
 /*
   eslint-disable no-underscore-dangle
 */
-import projects from "./projects";
-import storage from "./localStorageModule";
+import projects from './projects';
+import storage from './localStorageModule';
 
 const PageStructure = () => {
-  const content = document.getElementById("content");
-  const projectContainer = document.createElement("div");
+  const content = document.getElementById('content');
+  const projectContainer = document.createElement('div');
 
-  const projectsSelect = document.createElement("select");
-  projectsSelect.id = "selected-project";
-  projectsSelect.classList = "selected-project";
+  const projectsSelect = document.createElement('select');
+  projectsSelect.id = 'selected-project';
+  projectsSelect.classList = 'selected-project';
   projectsSelect.required = true;
 
-  let projectsSelectOptions = "";
+  let projectsSelectOptions = '';
   projects().forEach((project, projectIndex) => {
     projectsSelectOptions += `
         <option value=${projectIndex}>${project._name} <span class=""></span> </option>
     `;
   });
   projectsSelect.innerHTML = projectsSelectOptions;
-  projectsSelect.value =
-    storage.getSelectedProject() || storage.setSelectedProject(0);
+  projectsSelect.value = storage.getSelectedProject() || storage.setSelectedProject(0);
 
-  const addNewProject = document.createElement("button");
-  addNewProject.innerText = "Add new project";
-  addNewProject.classList.add("btn", "btn-success");
-  addNewProject.id = "add-project";
-  addNewProject.setAttribute("data-toggle", "modal");
-  addNewProject.setAttribute("data-target", "#projectModal");
-  projects().length > 0 && projectContainer.appendChild(projectsSelect);
+  const addNewProject = document.createElement('button');
+  addNewProject.innerText = 'Add new project';
+  addNewProject.classList.add('btn', 'btn-success');
+  addNewProject.id = 'add-project';
+  addNewProject.setAttribute('data-toggle', 'modal');
+  addNewProject.setAttribute('data-target', '#projectModal');
   if (projects().length > 0) {
-    const deleteProject = document.createElement("button");
-    deleteProject.innerText = "Delete project";
-    deleteProject.id = "delete-project";
-    deleteProject.classList.add("btn", "btn-danger");
+    projectContainer.appendChild(projectsSelect);
+    const deleteProject = document.createElement('button');
+    deleteProject.innerText = 'Delete project';
+    deleteProject.id = 'delete-project';
+    deleteProject.classList.add('btn', 'btn-danger');
 
     projectContainer.appendChild(deleteProject);
   }
   projectContainer.appendChild(addNewProject);
 
-  const taskContainer = document.createElement("div");
-  taskContainer.id = "task-container";
+  const taskContainer = document.createElement('div');
+  taskContainer.id = 'task-container';
   if (projects().length > 0) {
-    const taskUnorderList = document.createElement("ul");
-    taskUnorderList.id = "task-order-list";
+    const taskUnorderList = document.createElement('ul');
+    taskUnorderList.id = 'task-order-list';
 
     const selectedProject = projects()[projectsSelect.value];
 
@@ -57,7 +56,7 @@ const PageStructure = () => {
         <h5>Note</h5>
         <div></div>
   `;
-    selectedProject &&
+    if (selectedProject) {
       selectedProject._tasks.forEach((task, taskIndex) => {
         selectedProjectLists += `
         <h5>${task._title}</h5>
@@ -80,17 +79,18 @@ const PageStructure = () => {
         </div>
     `;
       });
+    }
     taskUnorderList.innerHTML = selectedProjectLists;
 
-    const addTaskContainer = document.createElement("div");
-    addTaskContainer.id = "add-task-container";
+    const addTaskContainer = document.createElement('div');
+    addTaskContainer.id = 'add-task-container';
 
-    const addTaskButton = document.createElement("button");
-    addTaskButton.id = "add-task";
-    addTaskButton.classList.add("btn", "btn-success");
-    addTaskButton.innerText = "Add new task";
-    addTaskButton.setAttribute("data-toggle", "modal");
-    addTaskButton.setAttribute("data-target", "#taskModal");
+    const addTaskButton = document.createElement('button');
+    addTaskButton.id = 'add-task';
+    addTaskButton.classList.add('btn', 'btn-success');
+    addTaskButton.innerText = 'Add new task';
+    addTaskButton.setAttribute('data-toggle', 'modal');
+    addTaskButton.setAttribute('data-target', '#taskModal');
 
     taskContainer.appendChild(taskUnorderList);
 
@@ -98,12 +98,12 @@ const PageStructure = () => {
     taskContainer.appendChild(addTaskContainer);
   }
 
-  const projectFormModal = document.createElement("div");
-  projectFormModal.classList.add("modal");
-  projectFormModal.id = "projectModal";
-  projectFormModal.tabindex = "-1";
+  const projectFormModal = document.createElement('div');
+  projectFormModal.classList.add('modal');
+  projectFormModal.id = 'projectModal';
+  projectFormModal.tabindex = '-1';
 
-  let projectFormModalContent = `
+  const projectFormModalContent = `
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <form id="new-project">
@@ -134,26 +134,26 @@ const PageStructure = () => {
   `;
   projectFormModal.innerHTML = projectFormModalContent;
 
-  const taskFormModal = document.createElement("div");
-  taskFormModal.classList.add("modal");
-  taskFormModal.id = "taskModal";
-  taskFormModal.tabindex = "-1";
+  const taskFormModal = document.createElement('div');
+  taskFormModal.classList.add('modal');
+  taskFormModal.id = 'taskModal';
+  taskFormModal.tabindex = '-1';
 
-  let statusSelectOptions = "";
+  let statusSelectOptions = '';
   storage.statusOptions.forEach((option) => {
     statusSelectOptions += `
         <option value=${option}>${option}</option>
     `;
   });
 
-  let prioritySelectOptions = "";
+  let prioritySelectOptions = '';
   storage.priorityOptions.forEach((option) => {
     prioritySelectOptions += `
         <option value=${option}>${option}</option>
     `;
   });
 
-  let taskFormModalContent = `
+  const taskFormModalContent = `
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <form id="new-update-task">

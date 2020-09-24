@@ -6,7 +6,7 @@
 
 ![screenshot](screenshot_project.png)
 
-View the app live [here](https://rawcdn.githack.com/somoye123/task-list/e078ca25ea9395bd0af7be45c13fbdaf51698326/dist/index.html)
+View the app live [here](https://raw.githack.com/somoye123/task-list/main-part/dist/index.html)
 
 ## Built With
 

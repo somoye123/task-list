@@ -1,8 +1,11 @@
 # Task-list
 
-> This is part of the Microverse programs
+In this project, we built a simple Todo App using Webpack and ES6 by dynamically creating a majority of the DOM elements. Local storage was used to persist data across the user's session.
 
-> To-Do List Project in [The Odin Project's](https://www.theodinproject.com/courses/javascript/lessons/todo-list) Javascript Curriculum.
+- DOM Manipulation with JavaScript
+- LocalStorage
+- Bootstrap
+- Jest Testing
 
 ![screenshot](screenshot_project.png)
 
@@ -16,10 +19,15 @@ View the app live [here](https://raw.githack.com/somoye123/task-list/main-part/d
 
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy of the repository please run the following commands on your terminal:
 
-- Clone the repository on your local machine
-- cd into the folder
+```bash
+$ cd <folder>
+$ git clone https://github.com/acushlakoncept/todo.git
+$ cd todo
+$ npm install
+$ npm run start
+```
 
 ### Prerequisites
 
@@ -28,6 +36,11 @@ To get a local copy up and running follow these simple example steps.
 ### Install
 
 - Install VSCode or any code editor you like
+
+#### Run test
+```bash
+$ npm test
+```
 
 # Authors
 

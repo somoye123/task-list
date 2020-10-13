@@ -23,8 +23,8 @@ To get a local copy of the repository please run the following commands on your 
 
 ```bash
 $ cd <folder>
-$ git clone https://github.com/acushlakoncept/todo.git
-$ cd todo
+$ git clone https://github.com/somoye123/task-list.git
+$ cd task-list
 $ npm install
 $ npm run start
 ```
